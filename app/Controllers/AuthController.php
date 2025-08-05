@@ -13,6 +13,7 @@ class AuthController extends BaseController
     public function __construct()
     {
         $this->userModel = new UserModel();
+        helper('form');
     }
 
     public function login()
@@ -23,11 +24,19 @@ class AuthController extends BaseController
 
             $user = $this->userModel->where('username', $username)->first();
 
-            if ($user && password_verify($password, $user['password'])) {
+            if ($user && password_verify($password, $user['password']) && $user['is_active']) {
+                // Get user with role information
+                $userWithRole = $this->userModel->getUserWithRole($user['id']);
+                
+                // Update last login
+                $this->userModel->updateLastLogin($user['id']);
+                
                 session()->set([
                     'user_id' => $user['id'],
                     'username' => $user['username'],
                     'role' => $user['role'],
+                    'role_id' => $user['role_id'],
+                    'role_name' => $userWithRole['role_name'] ?? $user['role'],
                     'logged_in' => true
                 ]);
                 return redirect()->to('/dashboard');

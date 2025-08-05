@@ -6,7 +6,7 @@ use App\Models\MahasiswaModel;
 
 class Home extends BaseController
 {
-    public function index(): string
+    public function index()
     {
         if (session()->get('logged_in')) {
             return redirect()->to('/dashboard');

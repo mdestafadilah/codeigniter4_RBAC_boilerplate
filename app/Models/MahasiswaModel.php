@@ -29,13 +29,36 @@ class MahasiswaModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'nim'      => 'required|max_length[20]|is_unique[mahasiswa.nim]',
+        'nim'      => 'required|max_length[20]|is_unique[mahasiswa.nim,id,{id}]',
         'nama'     => 'required|max_length[100]',
-        'email'    => 'required|valid_email',
+        'email'    => 'required|valid_email|is_unique[mahasiswa.email,id,{id}]',
         'jurusan'  => 'required|max_length[100]',
         'angkatan' => 'required|numeric'
     ];
-    protected $validationMessages   = [];
+    protected $validationMessages   = [
+        'nim' => [
+            'required' => 'NIM harus diisi',
+            'max_length' => 'NIM tidak boleh lebih dari 20 karakter',
+            'is_unique' => 'NIM sudah digunakan oleh mahasiswa lain'
+        ],
+        'nama' => [
+            'required' => 'Nama harus diisi',
+            'max_length' => 'Nama tidak boleh lebih dari 100 karakter'
+        ],
+        'email' => [
+            'required' => 'Email harus diisi',
+            'valid_email' => 'Email harus berformat valid',
+            'is_unique' => 'Email sudah digunakan oleh mahasiswa lain'
+        ],
+        'jurusan' => [
+            'required' => 'Jurusan harus dipilih',
+            'max_length' => 'Jurusan tidak boleh lebih dari 100 karakter'
+        ],
+        'angkatan' => [
+            'required' => 'Angkatan harus diisi',
+            'numeric' => 'Angkatan harus berupa angka'
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
