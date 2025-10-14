@@ -12,7 +12,6 @@ class CreateRolesTable extends Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'name' => [
@@ -29,9 +28,8 @@ class CreateRolesTable extends Migration
                 'null' => true,
             ],
             'is_active' => [
-                'type' => 'TINYINT',
-                'constraint' => 1,
-                'default' => 1,
+                'type' => 'BOOLEAN',
+                'default' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',

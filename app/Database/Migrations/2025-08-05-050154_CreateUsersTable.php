@@ -8,11 +8,10 @@ class CreateUsersTable extends Migration
 {
     public function up()
     {
-        $this->forge->addfield([
+        $this->forge->addField([
             'id' => [
                 'type' => 'INT',
                 'constraint' => 5,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'username' => [
@@ -30,8 +29,8 @@ class CreateUsersTable extends Migration
                 'constraint' => '255',
             ],
             'role' => [
-                'type' => 'ENUM',
-                'constraint' => ['admin', 'user'],
+                'type' => 'VARCHAR',
+                'constraint' => 10,
                 'default' => 'user',
             ],
             'created_at' => [

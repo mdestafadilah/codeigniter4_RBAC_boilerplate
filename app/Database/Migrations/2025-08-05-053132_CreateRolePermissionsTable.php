@@ -12,18 +12,15 @@ class CreateRolePermissionsTable extends Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'role_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => true,
             ],
             'permission_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -31,8 +28,8 @@ class CreateRolePermissionsTable extends Migration
             ],
         ]);
         
-        $this->forge->addKey('id', true);
-        $this->forge->addKey(['role_id', 'permission_id'], false, true); // unique constraint
+        $this->forge->addKey('id', true); // Primary key
+        $this->forge->addKey(['role_id', 'permission_id'], false, true); // Unique constraint
         $this->forge->addForeignKey('role_id', 'roles', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('permission_id', 'permissions', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('role_permissions');

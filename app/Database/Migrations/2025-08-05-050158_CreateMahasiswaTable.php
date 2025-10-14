@@ -8,11 +8,10 @@ class CreateMahasiswaTable extends Migration
 {
     public function up()
     {
-        $this->forge->addfield([
+        $this->forge->addField([
             'id' => [
                 'type' => 'INT',
                 'constraint' => 5,
-                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'nim' => [
@@ -33,7 +32,8 @@ class CreateMahasiswaTable extends Migration
                 'constraint' => '100',
             ],
             'angkatan' => [
-                'type' => 'YEAR',
+                'type' => 'VARCHAR',
+                'constraint' => 4,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
