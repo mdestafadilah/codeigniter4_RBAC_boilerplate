@@ -22,7 +22,7 @@ class AuthController extends BaseController
             $username = $this->request->getPost('username');
             $password = $this->request->getPost('password');
 
-            $user = $this->userModel->where('username', $username)->first();
+            $user = $this->userModel->where('username', $username)->first(); //dd($user); exit; //dd($this->userModel->getLastQuery()->getQuery()); exit;
 
             if ($user && password_verify($password, $user['password']) && $user['is_active']) {
                 // Get user with role information
