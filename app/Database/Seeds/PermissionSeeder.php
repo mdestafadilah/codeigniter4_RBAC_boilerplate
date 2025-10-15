@@ -43,7 +43,7 @@ class PermissionSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             $permission['created_at'] = date('Y-m-d H:i:s');
-            $permission['is_active'] = 1;
+            $permission['is_active'] = true;
         }
 
         $this->db->table('permissions')->insertBatch($permissions);

@@ -34,7 +34,7 @@ class FixAllUsersSeeder extends Seeder
             if ($roleId) {
                 $userModel->update($user['id'], [
                     'role_id' => $roleId,
-                    'is_active' => 1
+                    'is_active' => true
                 ]);
                 
                 echo "User {$user['username']} updated with role ID {$roleId}\n";
