@@ -46,6 +46,7 @@ class PermissionFilter implements FilterInterface
                     ->setJSON(['error' => 'Access denied. Insufficient permissions.']);
             }
             
+            // Tidak Punya Akses
             return redirect()->to('/dashboard')->with('error', 'Access denied. You do not have sufficient permissions.');
         }
     }
