@@ -22,7 +22,7 @@ class UpdateAdminUserSeeder extends Seeder
                 // Update admin user with super_admin role
                 $userModel->update($adminUser['id'], [
                     'role_id' => $superAdminRole['id'],
-                    'is_active' => 1
+                    'is_active' => true
                 ]);
                 
                 echo "Admin user updated with super_admin role successfully!\n";
@@ -42,7 +42,7 @@ class UpdateAdminUserSeeder extends Seeder
             if ($userRole) {
                 $userModel->update($user1['id'], [
                     'role_id' => $userRole['id'],
-                    'is_active' => 1
+                    'is_active' => true
                 ]);
                 
                 echo "User1 updated with user role successfully!\n";

@@ -13,28 +13,28 @@ class RoleSeeder extends Seeder
                 'name' => 'super_admin',
                 'display_name' => 'Super Administrator',
                 'description' => 'Full system access with all permissions',
-                'is_active' => 1,
+                'is_active' => true,
                 'created_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'admin',
                 'display_name' => 'Administrator',
                 'description' => 'Administrative access with most permissions',
-                'is_active' => 1,
+                'is_active' => true,
                 'created_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'operator',
                 'display_name' => 'Operator',
                 'description' => 'Can manage mahasiswa data',
-                'is_active' => 1,
+                'is_active' => true,
                 'created_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'user',
                 'display_name' => 'User',
                 'description' => 'Basic user with limited access',
-                'is_active' => 1,
+                'is_active' => true,
                 'created_at' => date('Y-m-d H:i:s')
             ]
         ];
