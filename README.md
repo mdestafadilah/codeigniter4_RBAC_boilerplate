@@ -76,13 +76,24 @@ Fitur unggulan dari CI4 yang membantu dalam pengemban database:
    cp env .env
    ```
    
-   Edit file `.env` dan sesuaikan konfigurasi database:
+   Edit file `.env` dan sesuaikan konfigurasi database untuk MySQL:
    ```
    database.default.hostname = localhost
    database.default.database = nama_database
    database.default.username = username_db
    database.default.password = password_db
    database.default.DBDriver = MySQLi
+   ```
+
+   Edit file `.env` dan sesuaikan konfigurasi database untuk PostgreSQL:
+   ```
+   database.default.hostname = 127.0.0.1
+   database.default.database = nama_database
+   database.default.username = username_db
+   database.default.password = password_db
+   database.default.DBDriver = Postgre
+   database.default.port     = 5432
+   database.default.charset  = utf8
    ```
 
 4. **Buat database dan jalankan migrations**
