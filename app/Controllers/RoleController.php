@@ -55,7 +55,7 @@ class RoleController extends BaseController
     {
         $data = [
             'title' => 'Create Role',
-            'permissions' => $this->permissionModel->where('is_active', 1)->findAll(),
+            'permissions' => $this->permissionModel->where('is_active', true)->findAll(),
             'modules' => $this->permissionModel->getModules()
         ];
 
@@ -117,7 +117,7 @@ class RoleController extends BaseController
         $data = [
             'title' => 'Edit Role',
             'role' => $role,
-            'permissions' => $this->permissionModel->where('is_active', 1)->findAll(),
+            'permissions' => $this->permissionModel->where('is_active', true)->findAll(),
             'assignedPermissions' => $assignedPermissions,
             'modules' => $this->permissionModel->getModules()
         ];

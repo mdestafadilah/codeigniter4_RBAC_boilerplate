@@ -97,7 +97,7 @@ class PermissionController extends BaseController
             'display_name' => $this->request->getPost('display_name'),
             'description' => $this->request->getPost('description'),
             'module' => $module,
-            'is_active' => 1
+            'is_active' => true
         ];
 
         try {

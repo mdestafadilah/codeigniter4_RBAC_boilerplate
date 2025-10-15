@@ -92,7 +92,7 @@ if (!function_exists('get_user_validation_rules')) {
             'username' => 'required|min_length[3]|max_length[100]',
             'email' => 'required|valid_email',
             'role_id' => 'required|integer',
-            'is_active' => 'in_list[0,1]'
+            'is_active' => 'in_list[false,true]'
         ];
         
         // Add unique validation
@@ -148,7 +148,7 @@ if (!function_exists('get_role_validation_rules')) {
             'name' => 'required|min_length[3]|max_length[50]',
             'display_name' => 'required|min_length[3]|max_length[100]',
             'description' => 'max_length[255]',
-            'is_active' => 'in_list[0,1]'
+            'is_active' => 'in_list[false,true]'
         ];
         
         // Add unique validation

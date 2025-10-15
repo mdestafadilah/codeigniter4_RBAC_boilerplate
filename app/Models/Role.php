@@ -31,7 +31,7 @@ class Role extends Model
     protected $validationRules = [
         'name' => 'required|min_length[3]|max_length[50]|is_unique[roles.name,id,{id}]',
         'display_name' => 'required|min_length[3]|max_length[100]',
-        'is_active' => 'in_list[0,1]'
+        'is_active' => 'in_list[false,true]'
     ];
     protected $validationMessages = [
         'name' => [
@@ -65,7 +65,7 @@ class Role extends Model
         return $this->db->table('role_permissions rp')
             ->join('permissions p', 'p.id = rp.permission_id')
             ->where('rp.role_id', $roleId)
-            ->where('p.is_active', 1)
+            ->where('p.is_active', true)
             ->get()
             ->getResultArray();
     }

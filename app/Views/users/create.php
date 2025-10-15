@@ -126,7 +126,7 @@
                                            id="is_active" 
                                            name="is_active" 
                                            value="1" 
-                                           <?= old('is_active', '1') ? 'checked' : '' ?>>
+                                           <?= old('is_active', true) ? 'checked' : '' ?>>
                                     <label class="form-check-label" for="is_active">
                                         <strong>Active User</strong>
                                         <div class="form-text">Active users can log in to the system</div>
