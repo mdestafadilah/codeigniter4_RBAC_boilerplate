@@ -221,7 +221,7 @@ class PermissionController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Permission not found']);
         }
 
-        $newStatus = $permission['is_active'] ? 0 : 1;
+        $newStatus = $permission['is_active'] ? false : true;
         
         if ($this->permissionModel->update($id, ['is_active' => $newStatus])) {
             $message = $newStatus ? 'Permission activated successfully' : 'Permission deactivated successfully';

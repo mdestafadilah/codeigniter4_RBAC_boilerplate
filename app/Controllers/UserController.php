@@ -56,7 +56,7 @@ class UserController extends BaseController
     {
         $data = [
             'title' => 'Create User',
-            'roles' => $this->roleModel->where('is_active', 1)->findAll()
+            'roles' => $this->roleModel->where('is_active', true)->findAll()
         ];
 
         return view('users/create', $data);
@@ -71,7 +71,7 @@ class UserController extends BaseController
             'password' => 'required|min_length[6]',
             'confirm_password' => 'required|matches[password]',
             'role_id' => 'required|integer',
-            'is_active' => 'in_list[0,1]'
+            'is_active' => 'in_list[false,true]'
         ];
 
         if (!$this->validate($rules)) {
@@ -84,7 +84,7 @@ class UserController extends BaseController
             'password' => $this->request->getPost('password'),
             'role' => 'user', // Keep legacy role field
             'role_id' => $this->request->getPost('role_id'),
-            'is_active' => $this->request->getPost('is_active') ?? 1
+            'is_active' => $this->request->getPost('is_active') ?? true
         ];
 
         try {
@@ -112,7 +112,7 @@ class UserController extends BaseController
         $data = [
             'title' => 'Edit User',
             'user' => $user,
-            'roles' => $this->roleModel->where('is_active', 1)->findAll()
+            'roles' => $this->roleModel->where('is_active', true)->findAll()
         ];
 
         return view('users/edit', $data);
@@ -131,7 +131,7 @@ class UserController extends BaseController
             'username' => 'required|min_length[3]|max_length[100]|is_unique[users.username,id,' . $id . ']',
             'email' => 'required|valid_email|is_unique[users.email,id,' . $id . ']',
             'role_id' => 'required|integer',
-            'is_active' => 'in_list[0,1]'
+            'is_active' => 'in_list[false,true]'
         ];
 
         // Add password validation if provided
@@ -148,7 +148,7 @@ class UserController extends BaseController
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),
             'role_id' => $this->request->getPost('role_id'),
-            'is_active' => $this->request->getPost('is_active') ?? 1
+            'is_active' => $this->request->getPost('is_active') ?? true
         ];
 
         // Only update password if provided
@@ -236,7 +236,7 @@ class UserController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Cannot deactivate super admin user']);
         }
 
-        $newStatus = $user['is_active'] ? 0 : 1;
+        $newStatus = $user['is_active'] ? false : true;
         
         if ($this->userModel->update($id, ['is_active' => $newStatus])) {
             $message = $newStatus ? 'User activated successfully' : 'User deactivated successfully';

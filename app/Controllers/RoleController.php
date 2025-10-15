@@ -24,7 +24,7 @@ class RoleController extends BaseController
         $data = [
             'title' => 'Roles Management',
             'roles' => $this->roleModel->findAll()
-        ];
+        ]; //exit(dd($data));
 
         return view('roles/index', $data);
     }
@@ -69,7 +69,7 @@ class RoleController extends BaseController
             'name' => 'required|min_length[3]|max_length[50]|is_unique[roles.name]',
             'display_name' => 'required|min_length[3]|max_length[100]',
             'description' => 'max_length[255]',
-            'is_active' => 'in_list[0,1]'
+            'is_active' => 'in_list[false,true]'
         ];
 
         if (!$this->validate($rules)) {
@@ -80,7 +80,7 @@ class RoleController extends BaseController
             'name' => $this->request->getPost('name'),
             'display_name' => $this->request->getPost('display_name'),
             'description' => $this->request->getPost('description'),
-            'is_active' => $this->request->getPost('is_active') ?? 1
+            'is_active' => $this->request->getPost('is_active') ?? true
         ];
 
         try {
@@ -138,7 +138,7 @@ class RoleController extends BaseController
             'name' => 'required|min_length[3]|max_length[50]|is_unique[roles.name,id,' . $id . ']',
             'display_name' => 'required|min_length[3]|max_length[100]',
             'description' => 'max_length[255]',
-            'is_active' => 'in_list[0,1]'
+            'is_active' => 'in_list[false,true]'
         ];
 
         if (!$this->validate($rules)) {
@@ -149,7 +149,7 @@ class RoleController extends BaseController
             'name' => $this->request->getPost('name'),
             'display_name' => $this->request->getPost('display_name'),
             'description' => $this->request->getPost('description'),
-            'is_active' => $this->request->getPost('is_active') ?? 1
+            'is_active' => $this->request->getPost('is_active') ?? true
         ];
 
         try {
@@ -205,7 +205,7 @@ class RoleController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Role not found']);
         }
 
-        $newStatus = $role['is_active'] ? 0 : 1;
+        $newStatus = $role['is_active'] ? false : true;
         
         if ($this->roleModel->update($id, ['is_active' => $newStatus])) {
             $message = $newStatus ? 'Role activated successfully' : 'Role deactivated successfully';

@@ -32,7 +32,7 @@ class Permission extends Model
         'name' => 'required|min_length[3]|max_length[50]|is_unique[permissions.name,id,{id}]',
         'display_name' => 'required|min_length[3]|max_length[100]',
         'module' => 'max_length[50]',
-        'is_active' => 'in_list[0,1]'
+        'is_active' => 'in_list[false,true]'
     ];
     protected $validationMessages = [
         'name' => [
@@ -65,11 +65,11 @@ class Permission extends Model
     {
         if ($module) {
             return $this->where('module', $module)
-                ->where('is_active', 1)
+                ->where('is_active', true)
                 ->findAll();
         }
         
-        return $this->where('is_active', 1)->findAll();
+        return $this->where('is_active', true)->findAll();
     }
 
     public function getModules()

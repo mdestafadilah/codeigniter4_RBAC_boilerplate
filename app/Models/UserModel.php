@@ -102,9 +102,9 @@ class UserModel extends Model
             ->join('role_permissions rp', 'rp.role_id = r.id')
             ->join('permissions p', 'p.id = rp.permission_id')
             ->where('u.id', $userId)
-            ->where('u.is_active', 1)
-            ->where('r.is_active', 1)
-            ->where('p.is_active', 1)
+            ->where('u.is_active', true)
+            ->where('r.is_active', true)
+            ->where('p.is_active', true)
             ->select('p.name, p.display_name, p.module')
             ->get()
             ->getResultArray();
@@ -118,9 +118,9 @@ class UserModel extends Model
             ->join('permissions p', 'p.id = rp.permission_id')
             ->where('u.id', $userId)
             ->where('p.name', $permission)
-            ->where('u.is_active', 1)
-            ->where('r.is_active', 1)
-            ->where('p.is_active', 1)
+            ->where('u.is_active', true)
+            ->where('r.is_active', true)
+            ->where('p.is_active', true)
             ->countAllResults();
             
         return $count > 0;
