@@ -73,7 +73,7 @@
                                    type="checkbox" 
                                    id="is_active" 
                                    name="is_active" 
-                                   value="1" 
+                                   value="true" 
                                    <?= old('is_active', $role['is_active']) ? 'checked' : '' ?>
                                    <?= $role['name'] === 'super_admin' ? 'disabled' : '' ?>>
                             <label class="form-check-label" for="is_active">

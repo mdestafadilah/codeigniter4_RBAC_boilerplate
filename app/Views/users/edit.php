@@ -61,8 +61,8 @@
                             <div class="mb-3">
                                 <label for="is_active" class="form-label">Status</label>
                                 <select class="form-select" id="is_active" name="is_active">
-                                    <option value="1" <?= $user['is_active'] ? 'selected' : '' ?>>Active</option>
-                                    <option value="0" <?= !$user['is_active'] ? 'selected' : '' ?>>Inactive</option>
+                                    <option value="true" <?= $user['is_active'] ? 'selected' : '' ?>>Active</option>
+                                    <option value="false" <?= !$user['is_active'] ? 'selected' : '' ?>>Inactive</option>
                                 </select>
                                 <div class="form-text">User account status</div>
                             </div>
