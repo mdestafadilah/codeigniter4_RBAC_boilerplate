@@ -41,6 +41,30 @@ class CreateUsersTable extends Migration
                 'type' => 'DATETIME',
                 'null' => true,
             ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'active' => [
+                'type' => 'BOOLEAN',
+                'default' => true,
+            ],
+            'force_pass_reset' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'last_active' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'status' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'status_message' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('users');
