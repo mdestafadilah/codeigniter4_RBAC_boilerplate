@@ -637,12 +637,18 @@
                 });
             <?php endif; ?>
 
-            // Error messages  
-            <?php if ($session->getFlashdata('error')): ?>
+            // Error messages
+            <?php if (session()->has('errors')):
+                $errorList = '<ul>';
+                    foreach (session('errors') as $error) {
+                        $errorList .= '<li>' . esc($error) . '</li>';
+                    }
+                    $errorList .= '</ul>';
+                ?>
                 Swal.fire({
                     icon: 'error',
                     title: 'Gagal!',
-                    html: '<?= addslashes($session->getFlashdata('error')) ?>',
+                    html: '<?= addslashes($errorList) ?>',
                     confirmButtonColor: '#ef4444',
                     confirmButtonText: 'Tutup',
                     allowOutsideClick: false
