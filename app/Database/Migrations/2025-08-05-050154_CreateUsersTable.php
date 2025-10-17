@@ -61,10 +61,12 @@ class CreateUsersTable extends Migration
             'status' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+                'null' => true
             ],
             'status_message' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+                'null' => true
             ],
         ]);
         $this->forge->addKey('id', true);
