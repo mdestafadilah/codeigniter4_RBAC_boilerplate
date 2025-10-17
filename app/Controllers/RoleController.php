@@ -57,7 +57,7 @@ class RoleController extends BaseController
             'title' => 'Create Role',
             'permissions' => $this->permissionModel->where('is_active', true)->findAll(),
             'modules' => $this->permissionModel->getModules()
-        ];
+        ]; //exit(dd($data));
 
         return view('roles/create', $data);
     }
@@ -70,10 +70,18 @@ class RoleController extends BaseController
             'display_name' => 'required|min_length[3]|max_length[100]',
             'description' => 'max_length[255]',
             'is_active' => 'in_list[false,true]'
-        ];
+        ]; //exit(dd(!$this->validate($rules)));
 
-        if (!$this->validate($rules)) {
+        // Fails
+        if (!$this->validate($rules)) {            
             return back_with_validation_errors($this->validator);
+
+            // JUST DEVELOPMENT
+            // // Get validation errors
+            // $errors = $this->validator->getErrors();
+            // // Store errors in session flashdata
+            // return redirect()->back()->withInput()->with('errors', $errors);
+            
         }
 
         $data = [
@@ -81,7 +89,7 @@ class RoleController extends BaseController
             'display_name' => $this->request->getPost('display_name'),
             'description' => $this->request->getPost('description'),
             'is_active' => $this->request->getPost('is_active') ?? true
-        ];
+        ]; //exit(dd($data));
 
         try {
             $roleId = $this->roleModel->skipValidation(true)->insert($data);

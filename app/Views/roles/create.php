@@ -13,6 +13,16 @@
     </div>
 </div>
 
+<?php if (session()->has('errors')): ?>
+    <div class="alert alert-danger">
+        <ul>
+            <?php foreach (session('errors') as $error): ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
@@ -34,9 +44,7 @@
                                        value="<?= old('name') ?>" 
                                        placeholder="e.g., manager, editor">
                                 <div class="form-text">Unique identifier for the role (lowercase, no spaces)</div>
-                                <?php if (isset($errors['name'])): ?>
-                                    <div class="invalid-feedback"><?= $errors['name'] ?></div>
-                                <?php endif; ?>
+                        
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -49,9 +57,6 @@
                                        value="<?= old('display_name') ?>" 
                                        placeholder="e.g., Manager, Content Editor">
                                 <div class="form-text">Human-readable name for the role</div>
-                                <?php if (isset($errors['display_name'])): ?>
-                                    <div class="invalid-feedback"><?= $errors['display_name'] ?></div>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
