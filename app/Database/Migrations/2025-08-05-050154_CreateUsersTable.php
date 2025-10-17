@@ -52,6 +52,7 @@ class CreateUsersTable extends Migration
             'force_pass_reset' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+                'null' => true
             ],
             'last_active' => [
                 'type' => 'DATETIME',
