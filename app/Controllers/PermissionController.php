@@ -24,7 +24,7 @@ class PermissionController extends BaseController
             'modules' => $this->permissionModel->getModules()
         ];
 
-        return view('permissions/index', $data);
+        return $this->render('permissions/index', $data);
     }
 
     public function show($id)
@@ -48,7 +48,7 @@ class PermissionController extends BaseController
             'roles' => $roles
         ];
 
-        return view('permissions/show', $data);
+        return $this->render('permissions/show', $data);
     }
 
     public function create()
@@ -58,7 +58,7 @@ class PermissionController extends BaseController
             'modules' => $this->permissionModel->getModules()
         ];
 
-        return view('permissions/create', $data);
+        return $this->render('permissions/create', $data);
     }
 
     public function store()
@@ -127,7 +127,7 @@ class PermissionController extends BaseController
             'modules' => $this->permissionModel->getModules()
         ];
 
-        return view('permissions/edit', $data);
+        return $this->render('permissions/edit', $data);
     }
 
     public function update($id)

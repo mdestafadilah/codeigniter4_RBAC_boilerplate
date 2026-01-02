@@ -30,7 +30,7 @@ class UserController extends BaseController
             'users' => $users
         ];
 
-        return view('users/index', $data);
+        return $this->render('users/index', $data);
     }
 
     public function show($id)
@@ -49,7 +49,7 @@ class UserController extends BaseController
             'permissions' => $permissions
         ];
 
-        return view('users/show', $data);
+        return $this->render('users/show', $data);
     }
 
     public function create()
@@ -59,7 +59,7 @@ class UserController extends BaseController
             'roles' => $this->roleModel->where('is_active', true)->findAll()
         ];
 
-        return view('users/create', $data);
+        return $this->render('users/create', $data);
     }
 
     public function store()
@@ -115,7 +115,7 @@ class UserController extends BaseController
             'roles' => $this->roleModel->where('is_active', true)->findAll()
         ];
 
-        return view('users/edit', $data);
+        return $this->render('users/edit', $data);
     }
 
     public function update($id)

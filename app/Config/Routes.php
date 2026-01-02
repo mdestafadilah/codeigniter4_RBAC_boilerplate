@@ -7,6 +7,13 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+$routes->options('(:any)', static function () {
+    // Implement processing for OPTIONS if necessary
+    $response = service('response');
+    $response->setStatusCode(200);
+    return $response;
+});
+
 $routes->group('auth', function($routes) {
     $routes->get('login', 'AuthController::login');
     $routes->post('login', 'AuthController::login');
@@ -70,6 +77,19 @@ $routes->group('users', ['filter' => 'auth'], function($routes) {
     $routes->get('(:num)/delete', 'UserController::delete/$1', ['filter' => 'permission:users.delete']);
     $routes->post('(:num)/toggle', 'UserController::toggle/$1', ['filter' => 'permission:users.edit']);
 });
+
+// Menu Management Routes
+$routes->group('menus', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'MenuController::index', ['filter' => 'permission:users.view']);
+    $routes->get('create', 'MenuController::create', ['filter' => 'permission:users.view']);
+    $routes->post('store', 'MenuController::store', ['filter' => 'permission:users.view']);
+    $routes->get('edit/(:num)', 'MenuController::edit/$1', ['filter' => 'permission:users.view']);
+    $routes->post('update/(:num)', 'MenuController::update/$1', ['filter' => 'permission:users.view']);
+    $routes->post('delete/(:num)', 'MenuController::delete/$1', ['filter' => 'permission:users.view']);
+    $routes->post('toggle-status/(:num)', 'MenuController::toggleStatus/$1', ['filter' => 'permission:users.view']);
+});
+
+
 
 $routes->group('mahasiswa', ['filter' => 'auth'], function($routes) {
     $routes->get('/', 'MahasiswaController::index', ['filter' => 'permission:mahasiswa.view']);

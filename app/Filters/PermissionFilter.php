@@ -32,22 +32,22 @@ class PermissionFilter implements FilterInterface
         }
 
         $userId = session()->get('user_id');
-        $userModel = new UserModel();
+        $userModel = new UserModel(); //exit(dd($requiredPermission));
         
         // Check if user has the required permission
         if (!$userModel->hasPermission($userId, $requiredPermission)) {
+            helper('message');
             // Store the attempted URL for potential redirect after login
-            session()->setFlashdata('error', 'You do not have permission to access this resource.');
+            set_permission_denied_message('Anda tidak memiliki izin untuk mengakses resource ini.');
             
             // Return 403 Forbidden or redirect to access denied page
             if ($request->isAJAX()) {
                 return service('response')
                     ->setStatusCode(403)
-                    ->setJSON(['error' => 'Access denied. Insufficient permissions.']);
+                    ->setJSON(['error' => 'Akses ditolak. Izin tidak mencukupi.']);
             }
-            
             // Tidak Punya Akses
-            return redirect()->to('/dashboard')->with('error', 'Access denied. You do not have sufficient permissions.');
+            return redirect()->to('/dashboard');
         }
     }
 

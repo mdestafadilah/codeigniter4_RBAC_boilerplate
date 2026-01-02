@@ -1,6 +1,6 @@
 # CodeIgniter 4 RBAC Boilerplate
 
-![CodeIgniter](https://img.shields.io/badge/CodeIgniter-4.6.3-orange)
+![CodeIgniter](https://img.shields.io/badge/CodeIgniter-4.6.6-orange)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.0-purple)
 ![License](https://img.shields.io/badge/License-MIT-green)
 

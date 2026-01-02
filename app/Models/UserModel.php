@@ -34,7 +34,7 @@ class UserModel extends Model
         'password' => 'min_length[6]',
         'role'     => 'in_list[admin,user]',
         'role_id'  => 'integer',
-        'is_active' => 'in_list[0,1]'
+        'is_active' => 'in_list[false,true]'
     ];
     protected $validationMessages   = [
         'username' => [
@@ -129,5 +129,21 @@ class UserModel extends Model
     public function updateLastLogin($userId)
     {
         return $this->update($userId, ['last_login' => date('Y-m-d H:i:s')]);
+    }
+
+    public function updateRoleId($userId,$roleId)
+    {
+        return $this->update($userId, ['role_id' => $roleId, 'is_active' => true]); //exit(dd($this->db->getLastQuery()->getQuery()));
+    }
+
+    public function findUserByEmailAddress(string $emailAddress)
+    {
+        $user = $this->asArray()->where(['email' => $emailAddress])->first();
+
+        if (!$user) {
+            throw new \Exception('User does not exist for specified email address');
+        }
+
+        return $user;
     }
 }

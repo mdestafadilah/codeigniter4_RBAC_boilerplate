@@ -45,7 +45,7 @@ class AuthController extends BaseController
             }
         }
 
-        return view('auth/login');
+        return $this->render('auth/login');
     }
 
     public function register()
@@ -66,7 +66,7 @@ class AuthController extends BaseController
             }
         }
 
-        return view('auth/register');
+        return $this->render('auth/register');
     }
 
     public function logout()

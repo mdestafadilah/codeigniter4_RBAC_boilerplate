@@ -66,6 +66,7 @@ class Role extends Model
             ->join('permissions p', 'p.id = rp.permission_id')
             ->where('rp.role_id', $roleId)
             ->where('p.is_active', true)
+            ->orderBy('p.module','asc')
             ->get()
             ->getResultArray();
     }

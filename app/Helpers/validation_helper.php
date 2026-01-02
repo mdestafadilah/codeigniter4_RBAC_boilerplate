@@ -190,3 +190,209 @@ if (!function_exists('validate_with_custom_rules')) {
         return true;
     }
 }
+
+// ========================================
+// Validation Error Messages (Bahasa Indonesia)
+// ========================================
+
+if (!function_exists('validation_rules_id')) {
+    /**
+     * Generate validation rules dengan custom error messages bahasa Indonesia
+     * 
+     * @param string $field Nama field
+     * @param string $rules Validation rules (e.g., 'required|min_length[3]')
+     * @param array $customMessages Custom messages untuk override (optional)
+     * @return array ['rules' => string, 'errors' => array]
+     * 
+     * @example
+     * validation_rules_id('nama', 'required|min_length[3]')
+     * // Returns: ['rules' => 'required|min_length[3]', 'errors' => ['required' => 'Nama harus diisi', ...]]
+     */
+    function validation_rules_id(string $field, string $rules, array $customMessages = []): array
+    {
+        $ruleArray = explode('|', $rules);
+        $errors = [];
+        $label = get_field_label_id($field);
+        
+        foreach ($ruleArray as $rule) {
+            // Parse rule dan parameter
+            $ruleName = $rule;
+            $param = '';
+            
+            if (strpos($rule, '[') !== false) {
+                preg_match('/([a-z_]+)\[(.+)\]/', $rule, $matches);
+                if (!empty($matches)) {
+                    $ruleName = $matches[1];
+                    $param = $matches[2];
+                }
+            }
+            
+            // Gunakan custom message jika ada, jika tidak gunakan default
+            if (isset($customMessages[$ruleName])) {
+                $errors[$ruleName] = $customMessages[$ruleName];
+            } else {
+                $errors[$ruleName] = get_error_message_id($ruleName, $label, $param);
+            }
+        }
+        
+        return [
+            'rules' => $rules,
+            'errors' => $errors
+        ];
+    }
+}
+
+if (!function_exists('get_error_message_id')) {
+    /**
+     * Mendapatkan pesan error validasi dalam bahasa Indonesia
+     * 
+     * @param string $rule Nama rule
+     * @param string $label Label field (sudah dalam bahasa Indonesia)
+     * @param string $param Parameter rule
+     * @return string
+     */
+    function get_error_message_id(string $rule, string $label, string $param = ''): string
+    {
+        $messages = [
+            // Basic
+            'required' => '{label} harus diisi',
+            'permit_empty' => '{label} boleh kosong',
+            
+            // Length
+            'min_length' => '{label} minimal {param} karakter',
+            'max_length' => '{label} maksimal {param} karakter',
+            'exact_length' => '{label} harus tepat {param} karakter',
+            
+            // Numeric
+            'integer' => '{label} harus berupa bilangan bulat',
+            'numeric' => '{label} harus berupa angka',
+            'decimal' => '{label} harus berupa angka desimal',
+            'greater_than' => '{label} harus lebih besar dari {param}',
+            'greater_than_equal_to' => '{label} harus lebih besar atau sama dengan {param}',
+            'less_than' => '{label} harus kurang dari {param}',
+            'less_than_equal_to' => '{label} harus kurang dari atau sama dengan {param}',
+            'is_natural' => '{label} hanya boleh berisi angka',
+            'is_natural_no_zero' => '{label} harus lebih besar dari nol',
+            
+            // List
+            'in_list' => '{label} tidak valid',
+            'not_in_list' => '{label} tidak boleh salah satu dari: {param}',
+            
+            // Uniqueness
+            'is_unique' => '{label} sudah terdaftar',
+            'is_not_unique' => '{label} harus sudah ada dalam database',
+            
+            // Email & URL
+            'valid_email' => 'Format email tidak valid',
+            'valid_emails' => 'Semua email harus valid',
+            'valid_url' => 'Format URL tidak valid',
+            'valid_url_strict' => 'Format URL tidak valid',
+            
+            // Date
+            'valid_date' => 'Format tanggal tidak valid',
+            
+            // File Upload
+            'uploaded' => '{label} harus di-upload',
+            'max_size' => 'Ukuran {label} maksimal {param}KB',
+            'is_image' => 'File harus berupa gambar',
+            'mime_in' => 'Tipe file tidak valid',
+            'ext_in' => 'Ekstensi file tidak valid',
+            'max_dims' => 'Dimensi gambar terlalu besar',
+            'min_dims' => 'Dimensi gambar terlalu kecil',
+            
+            // String
+            'alpha' => '{label} hanya boleh berisi huruf',
+            'alpha_dash' => '{label} hanya boleh berisi huruf, angka, underscore, dan dash',
+            'alpha_numeric' => '{label} hanya boleh berisi huruf dan angka',
+            'alpha_numeric_space' => '{label} hanya boleh berisi huruf, angka, dan spasi',
+            'alpha_space' => '{label} hanya boleh berisi huruf dan spasi',
+            
+            // Other
+            'matches' => '{label} tidak cocok',
+            'differs' => '{label} harus berbeda dari {param}',
+            'equals' => '{label} harus sama dengan: {param}',
+            'regex_match' => 'Format {label} tidak valid',
+        ];
+        
+        $message = $messages[$rule] ?? '{label} tidak valid';
+        
+        // Replace placeholders
+        $message = str_replace('{label}', $label, $message);
+        $message = str_replace('{param}', $param, $message);
+        
+        return $message;
+    }
+}
+
+if (!function_exists('get_field_label_id')) {
+    /**
+     * Mapping field name ke label bahasa Indonesia
+     * 
+     * @param string $field
+     * @return string
+     */
+    function get_field_label_id(string $field): string
+    {
+        $labels = [
+            // Common
+            'nama' => 'Nama',
+            'nama_lengkap' => 'Nama lengkap',
+            'email' => 'Email',
+            'password' => 'Password',
+            'username' => 'Username',
+            'status' => 'Status',
+            'keterangan' => 'Keterangan',
+            'deskripsi' => 'Deskripsi',
+            'alamat' => 'Alamat',
+            'telepon' => 'Telepon',
+            'no_hp' => 'Nomor HP',
+            'nomor_hp' => 'Nomor HP',
+            
+            // Jamaah
+            'jenis_kelamin' => 'Jenis kelamin',
+            'tempat_lahir' => 'Tempat lahir',
+            'tanggal_lahir' => 'Tanggal lahir',
+            'no_ktp' => 'Nomor KTP',
+            'no_passport' => 'Nomor passport',
+            'kategori_program' => 'Kategori program',
+            'status_jamaah' => 'Status jamaah',
+            'golongan_darah' => 'Golongan darah',
+            'status_pernikahan' => 'Status pernikahan',
+            'pekerjaan' => 'Pekerjaan',
+            'kontak_darurat_nama' => 'Nama kontak darurat',
+            'kontak_darurat_hp' => 'No HP kontak darurat',
+            'hubungan_kontak_darurat' => 'Hubungan kontak darurat',
+            
+            // Location
+            'negara' => 'Nama negara',
+            'negara_id' => 'Negara',
+            'kota' => 'Nama kota',
+            'kota_id' => 'Kota',
+            'provinsi' => 'Provinsi',
+            
+            // Hotel & Tourism
+            'nama_hotel' => 'Nama hotel',
+            'rating' => 'Rating',
+            'link_maps' => 'Link maps',
+            'nama_tour' => 'Nama tour',
+            'kategori_id' => 'Kategori',
+            'nama_kategori' => 'Nama kategori',
+            'jenis_kategori' => 'Jenis kategori',
+            
+            // Airport & Airlines
+            'nama_bandara' => 'Nama bandara',
+            'kode_iata' => 'Kode IATA',
+            'nama_maskapai' => 'Nama maskapai',
+            'is_transit' => 'Jenis penerbangan',
+            'durasi_transit' => 'Durasi transit',
+            
+            // Other
+            'judul' => 'Judul',
+            'url' => 'URL',
+            'caption' => 'Caption',
+            'gambar' => 'Gambar',
+        ];
+        
+        return $labels[$field] ?? ucfirst(str_replace('_', ' ', $field));
+    }
+}

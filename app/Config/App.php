@@ -18,6 +18,24 @@ class App extends BaseConfig
      */
     public string $baseURL = 'http://localhost:8080/';
 
+    /*
+     * JSDELIVER: https://cdn.jsdelivr.net/gh/vizitripdotcom/assets@0.0.1/YOUR_LIBRARY_PATH_OR_NAME
+     * GH-Pages : https://vizitripdotcom.github.io/assets/YOUR_LIBRARY_PATH_OR_NAME
+     */
+    public const CLOUD_VER = '0.1.42';
+    public string $cloudVer = self::CLOUD_VER;
+    public string $cloudUrl = 'https://cdn.jsdelivr.net/gh/vizitripdotcom/assets@' . self::CLOUD_VER . '/';
+    
+    /**
+     * Flag to determine if we should use local assets instead of CDN
+     * This will be set automatically based on CDN availability check
+     */
+    public bool $useLocalAssets = true;
+    
+    /**
+     * Local assets base URL
+     */
+    public string $localAssetsUrl = '/assets/';
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
      * If you want to accept multiple Hostnames, set this.
@@ -93,7 +111,7 @@ class App extends BaseConfig
      * strings (like currency markers, numbers, etc), that your program
      * should run under for this request.
      */
-    public string $defaultLocale = 'en';
+    public string $defaultLocale = 'id';
 
     /**
      * --------------------------------------------------------------------------
@@ -105,7 +123,7 @@ class App extends BaseConfig
      *
      * If false, no automatic detection will be performed.
      */
-    public bool $negotiateLocale = false;
+    public bool $negotiateLocale = true;
 
     /**
      * --------------------------------------------------------------------------
@@ -120,7 +138,7 @@ class App extends BaseConfig
      *
      * @var list<string>
      */
-    public array $supportedLocales = ['en'];
+    public array $supportedLocales = ['id','en'];
 
     /**
      * --------------------------------------------------------------------------
@@ -133,7 +151,7 @@ class App extends BaseConfig
      * @see https://www.php.net/manual/en/timezones.php for list of timezones
      *      supported by PHP.
      */
-    public string $appTimezone = 'Asia/Makassar';
+    public string $appTimezone = 'Asia/Jakarta';
 
     /**
      * --------------------------------------------------------------------------
@@ -199,4 +217,41 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+    
+    /**
+     * --------------------------------------------------------------------------
+     * Asset URL Management
+     * --------------------------------------------------------------------------
+     */
+    
+    /**
+     * Get the base URL for assets (CDN or local based on availability)
+     * 
+     * @return string
+     */
+    public function getAssetUrl(): string
+    {
+        return $this->useLocalAssets ? $this->localAssetsUrl : $this->cloudUrl;
+    }
+    
+    /**
+     * Set whether to use local assets
+     * 
+     * @param bool $useLocal
+     * @return void
+     */
+    public function setUseLocalAssets(bool $useLocal): void
+    {
+        $this->useLocalAssets = $useLocal;
+    }
+    
+    /**
+     * Check if currently using local assets
+     * 
+     * @return bool
+     */
+    public function isUsingLocalAssets(): bool
+    {
+        return $this->useLocalAssets;
+    }
 }

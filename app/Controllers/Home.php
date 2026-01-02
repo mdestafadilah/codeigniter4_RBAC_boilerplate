@@ -23,6 +23,6 @@ class Home extends BaseController
             'recent_mahasiswa' => $mahasiswaModel->orderBy('created_at', 'DESC')->limit(5)->findAll()
         ];
         
-        return view('dashboard', $data);
+        return $this->render('dashboard', $data);
     }
 }
